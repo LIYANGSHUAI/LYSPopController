@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface LYSPopController : UIViewController
-@property (nonatomic,assign) CGFloat popHeight;
+@property (nonatomic, assign) CGFloat popSpacing;
+@property (nonatomic, assign) NSTimeInterval duration;
+
+- (instancetype)initWithCustomView:(UIView *)customView;
 @end
 
 @interface LYSPopContentView : UIView

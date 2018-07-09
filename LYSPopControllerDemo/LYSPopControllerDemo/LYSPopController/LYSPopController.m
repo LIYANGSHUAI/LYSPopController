@@ -8,6 +8,30 @@
 
 #import "LYSPopController.h"
 
+void updateTop(UIView *view, CGFloat top)
+{
+    CGRect frame = view.frame;
+    frame.origin.y = top;
+    view.frame = frame;
+}
+
+#define SCREENWIDTH CGRectGetWidth([UIScreen mainScreen].bounds)
+#define SCREENHEIGHT CGRectGetHeight([UIScreen mainScreen].bounds)
+
+@interface LYSPopContentView ()
+@property (nonatomic, weak) UIView *alertView;
+@end
+
+@implementation LYSPopContentView
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if (CGRectContainsPoint(self.alertView.frame, point)) {
+        return nil;
+    }
+    return [super hitTest:point withEvent:event];
+}
+@end
+
 @interface LYSPopController ()
 @property (nonatomic,strong) UIView *customView;
 @end
@@ -35,22 +59,38 @@
 
 - (void)defaultParams
 {
-    self.popHeight = 216;
+    self.duration = 0.3;
+    self.popSpacing = 216;
 }
 
 - (UIView *)customView
 {
     if (!_customView) {
-        _customView = [[LYSPopContentView alloc] init];
+        _customView = [[UIView alloc] init];
     }
     return _customView;
+}
+
+- (void)loadView
+{
+    LYSPopContentView *contentView = [[LYSPopContentView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    contentView.alertView = self.customView;
+    
+    UITapGestureRecognizer *cancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction:)];
+    [contentView addGestureRecognizer:cancel];
+    self.view = contentView;
+}
+
+- (void)cancelAction:(UITapGestureRecognizer *)sender
+{
+    [self hiddenAnimated:YES];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.customView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame), self.popHeight);
+    self.customView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, self.popSpacing);
     self.customView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.customView];
     
@@ -59,28 +99,33 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [UIView animateWithDuration:0.3 delay:0 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
-        self.customView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - self.popHeight, CGRectGetWidth(self.view.frame), self.popHeight);
-    } completion:nil];
+    
+    [self showAnimation:YES];
 }
 
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+- (void)showAnimation:(BOOL)animated
 {
-    [UIView animateWithDuration:0.3 delay:0 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
-        self.customView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame), self.popHeight);
-    } completion:^(BOOL finished) {
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }];
+    if (animated) {
+        [UIView animateWithDuration:self.duration delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+            updateTop(self.customView, SCREENHEIGHT - self.popSpacing);
+        } completion:nil];
+    } else {
+        updateTop(self.customView, SCREENHEIGHT - self.popSpacing);
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)hiddenAnimated:(BOOL)animated
+{
+    if (animated) {
+        [UIView animateWithDuration:self.duration delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+            updateTop(self.customView, SCREENHEIGHT);
+        } completion:^(BOOL finished) {
+            [self dismissViewControllerAnimated:NO completion:nil];
+        }];
+    } else {
+        updateTop(self.customView, SCREENHEIGHT);
+    }
 }
-
 @end
 
-@implementation LYSPopContentView
 
-@end

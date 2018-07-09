@@ -28,7 +28,9 @@
 
 - (void)bottomAlert:(UIButton *)sender
 {
-    LYSPopController *popVC = [[LYSPopController alloc] init];
+    UIDatePicker *date = [[UIDatePicker alloc] init];
+    
+    LYSPopController *popVC = [[LYSPopController alloc] initWithCustomView:date];
     popVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:popVC animated:NO completion:nil];
 }
