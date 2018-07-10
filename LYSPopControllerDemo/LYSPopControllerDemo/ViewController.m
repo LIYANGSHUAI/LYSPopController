@@ -18,21 +18,60 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    UIButton *bottomAlert = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)-120)/2.0, 200, 120, 40)];
-    [bottomAlert setTitle:@"底部弹出" forState:(UIControlStateNormal)];
-    bottomAlert.backgroundColor = [UIColor redColor];
-    [bottomAlert addTarget:self action:@selector(bottomAlert:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.view addSubview:bottomAlert];
     
+    NSArray *titleAry = @[@"上",@"下",@"左",@"右",@"中间"];
+    
+    for (int i = 0; i < [titleAry count]; i++) {
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)-120)/2.0, 150+50*i, 120, 40)];
+        [btn setTitle:titleAry[i] forState:(UIControlStateNormal)];
+        btn.backgroundColor = [UIColor redColor];
+        [btn addTarget:self action:@selector(btnAlert:) forControlEvents:(UIControlEventTouchUpInside)];
+        [self.view addSubview:btn];
+        btn.tag = 200+i;
+    }
+
 }
 
-- (void)bottomAlert:(UIButton *)sender
+- (void)btnAlert:(UIButton *)sender
 {
-    UIDatePicker *date = [[UIDatePicker alloc] init];
-    
-    LYSPopController *popVC = [[LYSPopController alloc] initWithCustomView:date];
-    popVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self presentViewController:popVC animated:NO completion:nil];
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor redColor];
+    LYSPopController *popVC = nil;
+    switch (sender.tag-200) {
+        case 0:
+        {
+            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
+            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleTop) popSpacing:120 customView:view];
+        }
+            break;
+        case 1:
+        {
+            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120);
+            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleBottom) popSpacing:120 customView:view];
+        }
+            break;
+        case 2:
+        {
+            view.frame = CGRectMake(0, 0, 120, CGRectGetHeight(self.view.frame));
+            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleLeft) popSpacing:120 customView:view];
+        }
+            break;
+        case 3:
+        {
+            view.frame = CGRectMake(0, 0, 120, CGRectGetHeight(self.view.frame));
+            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleRight) popSpacing:120 customView:view];
+        }
+            break;
+        case 4:
+        {
+            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120);
+            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:120 customView:view];
+        }
+            break;
+        default:
+            break;
+    }
+    [self alertPopController:popVC];
 }
 
 - (void)didReceiveMemoryWarning {

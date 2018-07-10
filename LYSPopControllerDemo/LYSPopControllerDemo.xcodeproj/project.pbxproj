@@ -15,7 +15,9 @@
 		CC63D30820F35CE200E4B4A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63D30720F35CE200E4B4A1 /* main.m */; };
 		CC63D31220F35CE200E4B4A1 /* LYSPopControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63D31120F35CE200E4B4A1 /* LYSPopControllerDemoTests.m */; };
 		CC63D31D20F35CE200E4B4A1 /* LYSPopControllerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63D31C20F35CE200E4B4A1 /* LYSPopControllerDemoUITests.m */; };
-		CC63D32D20F35DEF00E4B4A1 /* LYSPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63D32C20F35DEF00E4B4A1 /* LYSPopController.m */; };
+		CCE657B220F4AB6F00F28B8B /* LYSPopController.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CCE657B120F4AB6F00F28B8B /* LYSPopController.podspec */; };
+		CCE657B420F4AB7400F28B8B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CCE657B320F4AB7400F28B8B /* README.md */; };
+		CCE657B820F4AC1800F28B8B /* LYSPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE657B720F4AC1800F28B8B /* LYSPopController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +54,10 @@
 		CC63D31820F35CE200E4B4A1 /* LYSPopControllerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LYSPopControllerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC63D31C20F35CE200E4B4A1 /* LYSPopControllerDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYSPopControllerDemoUITests.m; sourceTree = "<group>"; };
 		CC63D31E20F35CE200E4B4A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC63D32B20F35DEF00E4B4A1 /* LYSPopController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYSPopController.h; sourceTree = "<group>"; };
-		CC63D32C20F35DEF00E4B4A1 /* LYSPopController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYSPopController.m; sourceTree = "<group>"; };
+		CCE657B120F4AB6F00F28B8B /* LYSPopController.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LYSPopController.podspec; path = ../../LYSPopController.podspec; sourceTree = "<group>"; };
+		CCE657B320F4AB7400F28B8B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		CCE657B620F4AC1800F28B8B /* LYSPopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYSPopController.h; sourceTree = "<group>"; };
+		CCE657B720F4AC1800F28B8B /* LYSPopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYSPopController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +110,9 @@
 			children = (
 				CC63D2F820F35CE100E4B4A1 /* AppDelegate.h */,
 				CC63D2F920F35CE100E4B4A1 /* AppDelegate.m */,
-				CC63D32A20F35DD300E4B4A1 /* LYSPopController */,
+				CCE657B320F4AB7400F28B8B /* README.md */,
+				CCE657B120F4AB6F00F28B8B /* LYSPopController.podspec */,
+				CCE657B520F4AC1800F28B8B /* LYSPopController */,
 				CC63D2FB20F35CE100E4B4A1 /* ViewController.h */,
 				CC63D2FC20F35CE100E4B4A1 /* ViewController.m */,
 				CC63D2FE20F35CE100E4B4A1 /* Main.storyboard */,
@@ -136,13 +142,14 @@
 			path = LYSPopControllerDemoUITests;
 			sourceTree = "<group>";
 		};
-		CC63D32A20F35DD300E4B4A1 /* LYSPopController */ = {
+		CCE657B520F4AC1800F28B8B /* LYSPopController */ = {
 			isa = PBXGroup;
 			children = (
-				CC63D32B20F35DEF00E4B4A1 /* LYSPopController.h */,
-				CC63D32C20F35DEF00E4B4A1 /* LYSPopController.m */,
+				CCE657B620F4AC1800F28B8B /* LYSPopController.h */,
+				CCE657B720F4AC1800F28B8B /* LYSPopController.m */,
 			);
-			path = LYSPopController;
+			name = LYSPopController;
+			path = ../../LYSPopController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +257,9 @@
 			files = (
 				CC63D30520F35CE200E4B4A1 /* LaunchScreen.storyboard in Resources */,
 				CC63D30220F35CE200E4B4A1 /* Assets.xcassets in Resources */,
+				CCE657B420F4AB7400F28B8B /* README.md in Resources */,
 				CC63D30020F35CE100E4B4A1 /* Main.storyboard in Resources */,
+				CCE657B220F4AB6F00F28B8B /* LYSPopController.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,7 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC63D32D20F35DEF00E4B4A1 /* LYSPopController.m in Sources */,
+				CCE657B820F4AC1800F28B8B /* LYSPopController.m in Sources */,
 				CC63D2FD20F35CE100E4B4A1 /* ViewController.m in Sources */,
 				CC63D30820F35CE200E4B4A1 /* main.m in Sources */,
 				CC63D2FA20F35CE100E4B4A1 /* AppDelegate.m in Sources */,
