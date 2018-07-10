@@ -36,42 +36,47 @@
 {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor redColor];
-    LYSPopController *popVC = nil;
-    switch (sender.tag-200) {
-        case 0:
-        {
-            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
-            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleTop) popSpacing:120 customView:view];
-        }
-            break;
-        case 1:
-        {
-            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120);
-            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleBottom) popSpacing:120 customView:view];
-        }
-            break;
-        case 2:
-        {
-            view.frame = CGRectMake(0, 0, 120, CGRectGetHeight(self.view.frame));
-            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleLeft) popSpacing:120 customView:view];
-        }
-            break;
-        case 3:
-        {
-            view.frame = CGRectMake(0, 0, 120, CGRectGetHeight(self.view.frame));
-            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleRight) popSpacing:120 customView:view];
-        }
-            break;
-        case 4:
-        {
-            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120);
-            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:120 customView:view];
-        }
-            break;
-        default:
-            break;
-    }
+    view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
+    LYSPopController *popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:120 customView:view];;
     [self alertPopController:popVC];
+    
+
+//    switch (sender.tag-200) {
+//        case 0:
+//        {
+//
+//            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
+//            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleTop) popSpacing:120 customView:view];
+//        }
+//            break;
+//        case 1:
+//        {
+//            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120);
+//            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleBottom) popSpacing:120 customView:view];
+//        }
+//            break;
+//        case 2:
+//        {
+//            view.frame = CGRectMake(0, 0, 120, CGRectGetHeight(self.view.frame));
+//            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleLeft) popSpacing:120 customView:view];
+//        }
+//            break;
+//        case 3:
+//        {
+//            view.frame = CGRectMake(0, 0, 120, CGRectGetHeight(self.view.frame));
+//            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleRight) popSpacing:120 customView:view];
+//        }
+//            break;
+//        case 4:
+//        {
+//            view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120);
+//            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:120 customView:view];
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+//    [self alertPopController:popVC];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -1,10 +1,13 @@
 # LYSPopController
+
+当前支持最高版本:0.0.2
+
 LYSPopController is mainly a user page pops up a pop-up window in response to an event, prompting user information
 
 ![iOS技术群群二维码](https://github.com/LIYANGSHUAI/LYSPopController/blob/master/resource/iOS技术群群二维码.JPG)
 
 ```objc
--> LYSDatePicker (版本号)
+-> LYSPopController (版本号)
 LYSPopController,I hope everyone will give me some advice during the process of use. I want to go further."
 s.description.
 pod 'LYSDatePicker', '~> 版本号'
@@ -23,43 +26,43 @@ pod 'LYSDatePicker', '~> 版本号'
 ![左](https://github.com/LIYANGSHUAI/LYSPopController/blob/master/resource/左.png)
 ![右](https://github.com/LIYANGSHUAI/LYSPopController/blob/master/resource/右.png)
 
+
 ```objc
 UIView *view = [[UIView alloc] init];
 view.backgroundColor = [UIColor redColor];
-LYSPopController *popVC = nil;
-switch (sender.tag-200) {
-case 0:
-{
 view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
-popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleTop) popSpacing:120 customView:view];
-}
-break;
-case 1:
-{
-view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120);
-popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleBottom) popSpacing:120 customView:view];
-}
-break;
-case 2:
-{
-view.frame = CGRectMake(0, 0, 120, CGRectGetHeight(self.view.frame));
-popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleLeft) popSpacing:120 customView:view];
-}
-break;
-case 3:
-{
-view.frame = CGRectMake(0, 0, 120, CGRectGetHeight(self.view.frame));
-popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleRight) popSpacing:120 customView:view];
-}
-break;
-case 4:
-{
-view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120);
-popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:120 customView:view];
-}
-break;
-default:
-break;
-}
+LYSPopController *popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleTop) popSpacing:120 customView:view];;
+[self alertPopController:popVC];
+```
+
+```objc
+UIView *view = [[UIView alloc] init];
+view.backgroundColor = [UIColor redColor];
+view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
+LYSPopController *popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleBottom) popSpacing:120 customView:view];;
+[self alertPopController:popVC];
+```
+
+```objc
+UIView *view = [[UIView alloc] init];
+view.backgroundColor = [UIColor redColor];
+view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
+LYSPopController *popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleLeft) popSpacing:120 customView:view];;
+[self alertPopController:popVC];
+```
+
+```objc
+UIView *view = [[UIView alloc] init];
+view.backgroundColor = [UIColor redColor];
+view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
+LYSPopController *popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleRight) popSpacing:120 customView:view];;
+[self alertPopController:popVC];
+```
+
+```objc
+UIView *view = [[UIView alloc] init];
+view.backgroundColor = [UIColor redColor];
+view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
+LYSPopController *popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:120 customView:view];;
 [self alertPopController:popVC];
 ```
