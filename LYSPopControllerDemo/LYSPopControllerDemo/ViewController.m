@@ -36,8 +36,9 @@
 {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor redColor];
-    view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 120);
-    LYSPopController *popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:120 customView:view];;
+    view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)-20, 200);
+    LYSPopController *popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleTop) popSpacing:200 customView:view];;
+    popVC.popMargin = 50;
     [self alertPopController:popVC];
     
 

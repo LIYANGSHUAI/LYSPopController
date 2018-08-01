@@ -12,6 +12,7 @@
 #define SCREENHEIGHT CGRectGetHeight([UIScreen mainScreen].bounds)
 
 @interface LYSPopController ()
+@property (nonatomic, strong) UIView *bgView;
 @property (nonatomic,strong) UIView *marginView;
 @property (nonatomic,strong) UIView *popContentView;
 @property (nonatomic,assign) CGRect from;
@@ -51,17 +52,21 @@
     self.style = LYSPopStyleBottom;
     self.popMargin = 0;
     self.enableAnimationAlpha = YES;
+    self.bgColor = nil;
 }
 - (void)loadView
 {
     [super loadView];
+    self.bgView = [[UIView alloc] init];
     UITapGestureRecognizer *cancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction:)];
     [self.view addGestureRecognizer:cancel];
 }
 - (void)cancelAction:(UITapGestureRecognizer *)sender
 {
-    if (!CGRectContainsPoint(self.marginView.frame, [sender locationInView:sender.view])) {
-        [self hiddenAnimated:YES];
+    if (CGRectContainsPoint(self.bgView.frame, [sender locationInView:sender.view])) {
+        if (!CGRectContainsPoint(self.marginView.frame, [sender locationInView:sender.view])) {
+            [self hiddenAnimated:YES];
+        }
     }
 }
 - (void)viewDidLoad {
@@ -76,6 +81,7 @@
             marginFrame = CGRectMake(0, SCREENHEIGHT - self.popMargin - self.popSpacing, SCREENWIDTH, self.popSpacing);
             _from = CGRectMake(0, CGRectGetHeight(marginFrame), CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
             _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            self.bgView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-self.popMargin);
         }
             break;
         case LYSPopStyleTop:
@@ -83,6 +89,7 @@
             marginFrame = CGRectMake(0, self.popMargin, SCREENWIDTH, self.popSpacing);
             _from = CGRectMake(0, -CGRectGetHeight(marginFrame), CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
             _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            self.bgView.frame = CGRectMake(0, self.popMargin, SCREENWIDTH, SCREENHEIGHT-self.popMargin);
         }
             break;
         case LYSPopStyleLeft:
@@ -90,6 +97,7 @@
             marginFrame = CGRectMake(self.popMargin, 0, self.popSpacing, SCREENHEIGHT);
             _from = CGRectMake(-CGRectGetWidth(marginFrame), 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
             _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            self.bgView.frame = CGRectMake(self.popMargin, 0, SCREENWIDTH-self.popMargin, SCREENHEIGHT);
         }
             break;
         case LYSPopStyleRight:
@@ -97,6 +105,7 @@
             marginFrame = CGRectMake(SCREENWIDTH - self.popMargin - self.popSpacing, 0, self.popSpacing, SCREENHEIGHT);
             _from = CGRectMake(CGRectGetWidth(marginFrame), 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
             _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            self.bgView.frame = CGRectMake(0, 0, SCREENWIDTH-self.popMargin, SCREENHEIGHT);
         }
             break;
         case LYSPopStyleCenter:
@@ -104,6 +113,7 @@
             marginFrame = CGRectMake(0, (SCREENHEIGHT-self.popSpacing)/2.0+self.popMargin, SCREENWIDTH, self.popSpacing);
             _from = CGRectMake(CGRectGetWidth(marginFrame)/2.0, CGRectGetHeight(marginFrame)/2.0, 2, 2);
             _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            self.bgView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
         }
             break;
         default:
@@ -111,6 +121,8 @@
     }
     
     if (self.enableAnimationAlpha){self.popContentView.alpha = 0;}
+    [self.view addSubview:self.bgView];
+    self.bgView.backgroundColor = self.bgColor;
     
     self.marginView.frame = marginFrame;
     [self.view addSubview:self.marginView];

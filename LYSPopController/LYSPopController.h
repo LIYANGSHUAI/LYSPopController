@@ -27,6 +27,9 @@ typedef NS_ENUM(NSUInteger, LYSPopStyle) {
 /// The content view that pops up is generally the specific display view popped up by the user.
 @property (nonatomic,strong) UIView *customView;
 
+/// Background view color
+@property (nonatomic, strong) UIColor *bgColor;
+
 /// The starting position of the pop-up content view animation. The default is 0, which is close to the screen.
 @property (nonatomic,assign) CGFloat popMargin;
 
