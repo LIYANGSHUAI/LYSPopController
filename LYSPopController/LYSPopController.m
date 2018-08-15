@@ -12,11 +12,11 @@
 #define SCREENHEIGHT CGRectGetHeight([UIScreen mainScreen].bounds)
 
 @interface LYSPopController ()
-@property (nonatomic, strong) UIView *bgView;
+@property (nonatomic,strong) UIView *bgView;
 @property (nonatomic,strong) UIView *marginView;
 @property (nonatomic,strong) UIView *popContentView;
-@property (nonatomic,assign) CGRect from;
-@property (nonatomic,assign) CGRect to;
+@property (nonatomic,strong) NSValue *from;
+@property (nonatomic,strong) NSValue *to;
 @end
 
 @implementation LYSPopController
@@ -51,7 +51,7 @@
     self.popSpacing = 216;
     self.style = LYSPopStyleBottom;
     self.popMargin = 0;
-    self.enableAnimationAlpha = YES;
+    self.enableAnimationAlpha = NO;
     self.bgColor = nil;
 }
 - (void)loadView
@@ -79,40 +79,40 @@
         case LYSPopStyleBottom:
         {
             marginFrame = CGRectMake(0, SCREENHEIGHT - self.popMargin - self.popSpacing, SCREENWIDTH, self.popSpacing);
-            _from = CGRectMake(0, CGRectGetHeight(marginFrame), CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
-            _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            _from = [NSValue valueWithCGRect:CGRectMake(0, CGRectGetHeight(marginFrame), CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame))];
+            _to = [NSValue valueWithCGRect:CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame))];
             self.bgView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-self.popMargin);
         }
             break;
         case LYSPopStyleTop:
         {
             marginFrame = CGRectMake(0, self.popMargin, SCREENWIDTH, self.popSpacing);
-            _from = CGRectMake(0, -CGRectGetHeight(marginFrame), CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
-            _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            _from = [NSValue valueWithCGRect:CGRectMake(0, -CGRectGetHeight(marginFrame), CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame))];
+            _to = [NSValue valueWithCGRect:CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame))];
             self.bgView.frame = CGRectMake(0, self.popMargin, SCREENWIDTH, SCREENHEIGHT-self.popMargin);
         }
             break;
         case LYSPopStyleLeft:
         {
             marginFrame = CGRectMake(self.popMargin, 0, self.popSpacing, SCREENHEIGHT);
-            _from = CGRectMake(-CGRectGetWidth(marginFrame), 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
-            _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            _from = [NSValue valueWithCGRect:CGRectMake(-CGRectGetWidth(marginFrame), 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame))];
+            _to = [NSValue valueWithCGRect:CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame))];
             self.bgView.frame = CGRectMake(self.popMargin, 0, SCREENWIDTH-self.popMargin, SCREENHEIGHT);
         }
             break;
         case LYSPopStyleRight:
         {
             marginFrame = CGRectMake(SCREENWIDTH - self.popMargin - self.popSpacing, 0, self.popSpacing, SCREENHEIGHT);
-            _from = CGRectMake(CGRectGetWidth(marginFrame), 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
-            _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            _from = [NSValue valueWithCGRect:CGRectMake(CGRectGetWidth(marginFrame), 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame))];
+            _to = [NSValue valueWithCGRect:CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame))];
             self.bgView.frame = CGRectMake(0, 0, SCREENWIDTH-self.popMargin, SCREENHEIGHT);
         }
             break;
         case LYSPopStyleCenter:
         {
             marginFrame = CGRectMake(0, (SCREENHEIGHT-self.popSpacing)/2.0+self.popMargin, SCREENWIDTH, self.popSpacing);
-            _from = CGRectMake(CGRectGetWidth(marginFrame)/2.0, CGRectGetHeight(marginFrame)/2.0, 2, 2);
-            _to = CGRectMake(0, 0, CGRectGetWidth(marginFrame), CGRectGetHeight(marginFrame));
+            _from = [NSValue valueWithCGAffineTransform:(CGAffineTransformMakeScale(0, 0))];
+            _to = [NSValue valueWithCGAffineTransform:(CGAffineTransformMakeScale(1, 1))];
             self.bgView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
         }
             break;
@@ -127,7 +127,13 @@
     self.marginView.frame = marginFrame;
     [self.view addSubview:self.marginView];
     
-    self.popContentView.frame = _from;
+    if (self.style == LYSPopStyleCenter) {
+        self.popContentView.frame = self.marginView.bounds;
+        self.popContentView.transform = [_from CGAffineTransformValue];
+        self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+    } else {
+        self.popContentView.frame = [_from CGRectValue];
+    }
     [self.marginView addSubview:self.popContentView];
     
     self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
@@ -145,14 +151,24 @@
     if (animated) {
         __weak LYSPopController *weakSelf = self;
         [UIView animateWithDuration:self.duration delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-            self.popContentView.frame = weakSelf.to;
+            if (self.style == LYSPopStyleCenter) {
+                self.popContentView.transform = [weakSelf.to CGAffineTransformValue];
+                self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+            } else {
+                self.popContentView.frame = [weakSelf.to CGRectValue];
+            }
             self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
             if (self.enableAnimationAlpha) {
                 self.popContentView.alpha = 1;
             }
         } completion:nil];
     } else {
-        self.popContentView.frame = _to;
+        if (self.style == LYSPopStyleCenter) {
+            self.popContentView.transform = [_to CGAffineTransformValue];
+            self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+        } else {
+            self.popContentView.frame = [_to CGRectValue];
+        }
     }
 }
 
@@ -161,7 +177,12 @@
     if (animated) {
         __weak LYSPopController *weakSelf = self;
         [UIView animateWithDuration:self.duration delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-            self.popContentView.frame = weakSelf.from;
+            if (self.style == LYSPopStyleCenter) {
+                self.popContentView.transform = [weakSelf.from CGAffineTransformValue];
+                self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+            } else {
+                self.popContentView.frame = [weakSelf.from CGRectValue];
+            }
             if (self.enableAnimationAlpha) {
                 self.popContentView.alpha = 0;
             }
@@ -169,7 +190,12 @@
             [self dismissViewControllerAnimated:NO completion:nil];
         }];
     } else {
-        self.popContentView.frame = _from;
+        if (self.style == LYSPopStyleCenter) {
+            self.popContentView.transform = [_from CGAffineTransformValue];
+            self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+        } else {
+            self.popContentView.frame = [_from CGRectValue];
+        }
         [self dismissViewControllerAnimated:NO completion:nil];
     }
 }

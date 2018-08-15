@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E54060F21245EE8004EB0E4 /* 33411601.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E54060E21245EE7004EB0E4 /* 33411601.jpeg */; };
 		CC63D2FA20F35CE100E4B4A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63D2F920F35CE100E4B4A1 /* AppDelegate.m */; };
 		CC63D2FD20F35CE100E4B4A1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63D2FC20F35CE100E4B4A1 /* ViewController.m */; };
 		CC63D30020F35CE100E4B4A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC63D2FE20F35CE100E4B4A1 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E54060E21245EE7004EB0E4 /* 33411601.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 33411601.jpeg; sourceTree = "<group>"; };
 		CC63D2F520F35CE100E4B4A1 /* LYSPopControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYSPopControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC63D2F820F35CE100E4B4A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CC63D2F920F35CE100E4B4A1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				CC63D2F820F35CE100E4B4A1 /* AppDelegate.h */,
 				CC63D2F920F35CE100E4B4A1 /* AppDelegate.m */,
+				3E54060E21245EE7004EB0E4 /* 33411601.jpeg */,
 				CCE657B320F4AB7400F28B8B /* README.md */,
 				CCE657B120F4AB6F00F28B8B /* LYSPopController.podspec */,
 				CCE657B520F4AC1800F28B8B /* LYSPopController */,
@@ -255,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E54060F21245EE8004EB0E4 /* 33411601.jpeg in Resources */,
 				CC63D30520F35CE200E4B4A1 /* LaunchScreen.storyboard in Resources */,
 				CC63D30220F35CE200E4B4A1 /* Assets.xcassets in Resources */,
 				CCE657B420F4AB7400F28B8B /* README.md in Resources */,
