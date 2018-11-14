@@ -38,6 +38,9 @@ typedef NS_ENUM(NSUInteger, LYSPopStyle) {
 /// The duration of the pop-up content view animation
 @property (nonatomic, assign) NSTimeInterval duration;
 
+/// 是否开启动画效果,默认是开启
+@property (nonatomic, assign) BOOL animationEnable;
+
 /// Initialization method
 - (instancetype)initWithStyle:(LYSPopStyle)style popSpacing:(CGFloat)popSpacing;
 - (instancetype)initWithStyle:(LYSPopStyle)style popSpacing:(CGFloat)popSpacing customView:(UIView *)customView;

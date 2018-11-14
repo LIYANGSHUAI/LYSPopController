@@ -53,6 +53,7 @@
     self.popMargin = 0;
     self.enableAnimationAlpha = NO;
     self.bgColor = nil;
+    self.animationEnable = YES;
 }
 - (void)loadView
 {
@@ -65,7 +66,7 @@
 {
     if (CGRectContainsPoint(self.bgView.frame, [sender locationInView:sender.view])) {
         if (!CGRectContainsPoint(self.marginView.frame, [sender locationInView:sender.view])) {
-            [self hiddenAnimated:YES];
+            [self hiddenAnimated:self.animationEnable];
         }
     }
 }
@@ -131,19 +132,19 @@
         self.popContentView.frame = self.marginView.bounds;
         self.popContentView.transform = [_from CGAffineTransformValue];
         self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+        self.customView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
     } else {
         self.popContentView.frame = [_from CGRectValue];
+        self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
     }
     [self.marginView addSubview:self.popContentView];
-    
-    self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
     [self.popContentView addSubview:self.customView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self showAnimation:YES];
+    [self showAnimation:self.animationEnable];
 }
 
 - (void)showAnimation:(BOOL)animated
@@ -154,10 +155,12 @@
             if (self.style == LYSPopStyleCenter) {
                 self.popContentView.transform = [weakSelf.to CGAffineTransformValue];
                 self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+                self.customView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
             } else {
                 self.popContentView.frame = [weakSelf.to CGRectValue];
+                self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
             }
-            self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
+
             if (self.enableAnimationAlpha) {
                 self.popContentView.alpha = 1;
             }
@@ -166,8 +169,10 @@
         if (self.style == LYSPopStyleCenter) {
             self.popContentView.transform = [_to CGAffineTransformValue];
             self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+            self.customView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
         } else {
             self.popContentView.frame = [_to CGRectValue];
+            self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
         }
     }
 }
@@ -180,8 +185,10 @@
             if (self.style == LYSPopStyleCenter) {
                 self.popContentView.transform = [weakSelf.from CGAffineTransformValue];
                 self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+                self.customView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
             } else {
                 self.popContentView.frame = [weakSelf.from CGRectValue];
+                self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
             }
             if (self.enableAnimationAlpha) {
                 self.popContentView.alpha = 0;
@@ -193,8 +200,10 @@
         if (self.style == LYSPopStyleCenter) {
             self.popContentView.transform = [_from CGAffineTransformValue];
             self.popContentView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
+            self.customView.center = CGPointMake(CGRectGetWidth(self.marginView.frame)/2.0, CGRectGetHeight(self.marginView.frame)/2.0);
         } else {
             self.popContentView.frame = [_from CGRectValue];
+            self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
         }
         [self dismissViewControllerAnimated:NO completion:nil];
     }
