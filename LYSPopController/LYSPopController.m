@@ -59,17 +59,21 @@
 {
     [super loadView];
     self.bgView = [[UIView alloc] init];
-    UITapGestureRecognizer *cancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction:)];
-    [self.view addGestureRecognizer:cancel];
+//    UITapGestureRecognizer *cancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction:)];
+//    [self.view addGestureRecognizer:cancel];
 }
-- (void)cancelAction:(UITapGestureRecognizer *)sender
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    if (CGRectContainsPoint(self.bgView.frame, [sender locationInView:sender.view])) {
-        if (!CGRectContainsPoint(self.marginView.frame, [sender locationInView:sender.view])) {
-            [self hiddenAnimated:self.animationEnable];
-        }
-    }
+    [self hiddenAnimated:self.animationEnable];
 }
+//- (void)cancelAction:(UITapGestureRecognizer *)sender
+//{
+//    if (CGRectContainsPoint(self.bgView.frame, [sender locationInView:sender.view])) {
+//        if (!CGRectContainsPoint(self.marginView.frame, [sender locationInView:sender.view])) {
+//
+//        }
+//    }
+//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "LYSPopController"
-s.version      = "0.0.4"
+s.version      = "0.0.5"
 s.summary      = "LYSPopController,I hope everyone will give me some advice during the process of use. I want to go further."
 s.description  = <<-DESC
 LYSPopController is mainly a user page pops up a pop-up window in response to an event, prompting user information
