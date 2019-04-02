@@ -17,12 +17,21 @@
 @property (nonatomic,strong) UIView *popContentView;
 @property (nonatomic,strong) NSValue *from;
 @property (nonatomic,strong) NSValue *to;
+@property (nonatomic, assign) NSInteger randomTag;
 @end
 
 @implementation LYSPopController
 - (UIView *)customView{if (!_customView) {_customView = [[UIView alloc] init];}return _customView;}
 - (UIView *)popContentView{if (!_popContentView) {_popContentView = [[UIView alloc] init];_popContentView.clipsToBounds = YES;}return _popContentView;}
-- (UIView *)marginView{if (!_marginView) {_marginView = [[UIView alloc] init];_marginView.clipsToBounds = YES;}return _marginView;}
+- (UIView *)marginView{
+    if (!_marginView)
+    {
+        _marginView = [[UIView alloc] init];
+        _marginView.clipsToBounds = YES;
+        _marginView.tag = self.randomTag;
+    }
+    return _marginView;
+}
 /// 初始化方法
 - (instancetype)init{self = [super init];if (self) {[self defaultParams];}return self;}
 - (instancetype)initWithStyle:(LYSPopStyle)style popSpacing:(CGFloat)popSpacing
@@ -44,6 +53,13 @@
     }
     return self;
 }
+- (NSInteger)randomTag
+{
+    if (_randomTag == 0) {
+        _randomTag = arc4random() * 1000 + 1;
+    }
+    return _randomTag;
+}
 /// 设置默认参数
 - (void)defaultParams
 {
@@ -58,22 +74,15 @@
 - (void)loadView
 {
     [super loadView];
+    self.view = [[LYSPopContentView alloc] initWithFrame:self.view.bounds];
+    ((LYSPopContentView *)self.view).randomTag = self.randomTag;
     self.bgView = [[UIView alloc] init];
-//    UITapGestureRecognizer *cancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction:)];
-//    [self.view addGestureRecognizer:cancel];
 }
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self hiddenAnimated:self.animationEnable];
 }
-//- (void)cancelAction:(UITapGestureRecognizer *)sender
-//{
-//    if (CGRectContainsPoint(self.bgView.frame, [sender locationInView:sender.view])) {
-//        if (!CGRectContainsPoint(self.marginView.frame, [sender locationInView:sender.view])) {
-//
-//        }
-//    }
-//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -164,7 +173,7 @@
                 self.popContentView.frame = [weakSelf.to CGRectValue];
                 self.customView.center = CGPointMake(CGRectGetWidth(self.popContentView.frame)/2.0, CGRectGetHeight(self.popContentView.frame)/2.0);
             }
-
+            
             if (self.enableAnimationAlpha) {
                 self.popContentView.alpha = 1;
             }
@@ -212,6 +221,7 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     }
 }
+
 @end
 
 @implementation UIViewController (LYSPopController)
@@ -222,3 +232,14 @@
 }
 @end
 
+@implementation LYSPopContentView
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    UIView *view = [self viewWithTag:self.randomTag];
+    if (CGRectContainsPoint(view.frame, point)) {
+        return [[view subviews][0] subviews][0];
+    } else {
+        return [super hitTest:point withEvent:event];
+    }
+}
+@end

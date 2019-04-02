@@ -53,3 +53,7 @@ typedef NS_ENUM(NSUInteger, LYSPopStyle) {
 /// Pop up the LYSPopController controller
 - (void)alertPopController:(LYSPopController *)controller;
 @end
+
+@interface LYSPopContentView : UIView
+@property (nonatomic, assign) NSInteger randomTag;
+@end
