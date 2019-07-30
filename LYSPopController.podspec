@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
 s.name         = "LYSPopController"
-s.version      = "0.0.6"
-s.summary      = "LYSPopController,I hope everyone will give me some advice during the process of use. I want to go further."
+s.version      = "0.0.7"
+s.summary      = "简单的实现一个弹窗组件"
 s.description  = <<-DESC
-LYSPopController is mainly a user page pops up a pop-up window in response to an event, prompting user information
+简单的实现一个弹窗组件,简单的实现一个弹窗组件,简单的实现一个弹窗组件,简单的实现一个弹窗组件
 DESC
 s.homepage     = "https://github.com/LIYANGSHUAI/LYSPopController"
 

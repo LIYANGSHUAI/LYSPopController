@@ -14,7 +14,7 @@
 @interface LYSPopController ()
 @property (nonatomic,strong) UIView *bgView;
 @property (nonatomic,strong) UIView *marginView;
-@property (nonatomic,strong) UIView *popContentView;
+@property (nonatomic,strong) UIButton *popContentView;
 @property (nonatomic,strong) NSValue *from;
 @property (nonatomic,strong) NSValue *to;
 @property (nonatomic, assign) NSInteger randomTag;
@@ -22,7 +22,7 @@
 
 @implementation LYSPopController
 - (UIView *)customView{if (!_customView) {_customView = [[UIView alloc] init];}return _customView;}
-- (UIView *)popContentView{if (!_popContentView) {_popContentView = [[UIView alloc] init];_popContentView.clipsToBounds = YES;}return _popContentView;}
+- (UIButton *)popContentView{if (!_popContentView) {_popContentView = [[UIButton alloc] init];_popContentView.clipsToBounds = YES;}return _popContentView;}
 - (UIView *)marginView{
     if (!_marginView)
     {
@@ -70,6 +70,7 @@
     self.enableAnimationAlpha = NO;
     self.bgColor = nil;
     self.animationEnable = YES;
+    self.enableTapBackHidden = YES;
 }
 - (void)loadView
 {
@@ -81,7 +82,9 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self hiddenAnimated:self.animationEnable];
+    if (self.enableTapBackHidden) {
+        [self hiddenAnimated:self.animationEnable];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

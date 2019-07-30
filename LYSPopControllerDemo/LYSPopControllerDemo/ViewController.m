@@ -59,6 +59,7 @@
     [view addGestureRecognizer:tap];
     LYSPopController *popVC = nil;
     
+    
     switch (sender.tag-200) {
         case 0:
         {
@@ -87,12 +88,13 @@
         case 4:
         {
             view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 200);
-            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:200 customView:self.tableView];
+            popVC = [[LYSPopController alloc] initWithStyle:(LYSPopStyleCenter) popSpacing:200 customView:view];
         }
             break;
         default:
             break;
     }
+//    popVC.enableTapBackHidden = NO;
     [self alertPopController:popVC];
 }
 

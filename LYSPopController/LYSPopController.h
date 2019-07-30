@@ -38,6 +38,9 @@ typedef NS_ENUM(NSUInteger, LYSPopStyle) {
 /// The duration of the pop-up content view animation
 @property (nonatomic, assign) NSTimeInterval duration;
 
+// 点击背景是否隐藏弹窗,默认是YES
+@property (nonatomic, assign) BOOL enableTapBackHidden;
+
 /// 是否开启动画效果,默认是开启
 @property (nonatomic, assign) BOOL animationEnable;
 
