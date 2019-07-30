@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "LYSPopController"
-s.version      = "0.0.7"
+s.version      = "0.0.8"
 s.summary      = "简单的实现一个弹窗组件"
 s.description  = <<-DESC
 简单的实现一个弹窗组件,简单的实现一个弹窗组件,简单的实现一个弹窗组件,简单的实现一个弹窗组件
