@@ -75,8 +75,6 @@
 - (void)loadView
 {
     [super loadView];
-    self.view = [[LYSPopContentView alloc] initWithFrame:self.view.bounds];
-    ((LYSPopContentView *)self.view).randomTag = self.randomTag;
     self.bgView = [[UIView alloc] init];
 }
 
@@ -232,17 +230,5 @@
 {
     controller.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:controller animated:NO completion:nil];
-}
-@end
-
-@implementation LYSPopContentView
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-{
-    UIView *view = [self viewWithTag:self.randomTag];
-    if (CGRectContainsPoint(view.frame, point)) {
-        return [[view subviews][0] subviews][0];
-    } else {
-        return [super hitTest:point withEvent:event];
-    }
 }
 @end
