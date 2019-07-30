@@ -94,7 +94,7 @@
         default:
             break;
     }
-//    popVC.enableTapBackHidden = NO;
+    popVC.enableTapBackHidden = NO;
     [self alertPopController:popVC];
 }
 
